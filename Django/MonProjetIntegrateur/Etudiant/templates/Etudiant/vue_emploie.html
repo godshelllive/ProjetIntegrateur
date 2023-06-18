@@ -1,0 +1,65 @@
+
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'Etudiant/css/bootstrap.css' %}">
+    <title>Gestion du projet</title>
+</head>
+<body style="background: linear-gradient(to bottom, rgba(0, 252, 13, 0.61), rgba(19, 75, 24, 0.644));">
+    
+    <div class="container mt-5">
+        <h4 class="text-center danger" style="margin-bottom: 4%;border-radius: 10px;border: 2px solid black; background: linear-gradient(to right, rgba(0, 59, 252, 0.74), rgba(0, 149, 248, 0.322));padding: 3%;margin-left: 2px;color: rgb(0, 41, 0); font-family:cursive;">Projet d'Entrainement (numéro 55).</h4>
+        <h4 class="text-center alert alert-info">Les Utilisateurs</h4>
+        <center><div class="col">
+            <table class="table-warning table-bordered border-primary" style=" border: 6px inset;">
+                <thead>
+                    {% if partner0 %}
+                  <tr>
+                    <th scope="col">Lundi</th>
+                    <th scope="col">Mardi</th>
+                    <th scope="col">Mercredi</th>
+                    <th scope="col">Jeudi</th>
+                    <th scope="col">Vendredi</th>
+                    <th scope="col">Samedi</th>
+                    <th scope="col" style="font-family: impact; font-size: 110%; color: rgb(0, 0, 99);">VOS POSSIBILITES</th>
+                  </tr>
+                </thead>
+                <tbody class="table-group-divider">
+                    {% for objs in partner0 %}
+                    <tr>
+                        <th scope="row">{{objs.lundi}}</th>
+                        <td>{{objs.mardi}}</td>
+                        <td>{{objs.mercredi}}</td>
+                        <td>{{objs.jeudi}}</td>
+                        <td>{{objs.vendredi}}</td>
+                        <td>{{objs.samedi}}</td>                        
+                        <td style="display: flex; margin-top: 5%;">
+                            <a href="{% url 'updatepath' objs.id %}" class = "btn btn-info btn-sm">Modifier</a>
+                            <form action="{% url 'delete_path' objs.id %}" method="post">
+                                {%csrf_token%}
+                                <input type="submit" class="btn btn-danger" value="Supprimer">
+                            </form>
+                        </td>
+                    </tr>
+                    {% endfor%}
+                </tbody>
+              </table>
+            {% else %}
+            <h4 class="text-center alert alert-warning">AUCUN EMPLOI DE TEMPS DISPONIBLE !</h4>
+            {% endif %}
+            <center><div class="row" style="margin-bottom: 50%; margin-top: 3%;">
+                <center><a href="javascript:history.back()" class = "btn btn-warning " style="margin-bottom: 2%;">RETOUR</a></center>
+                <center><a href="{% url 'addandshow' %}" class = "btn btn-danger col">Déconnection</a></center>
+            </div>
+            </center>
+        </div></center>
+    </div>
+    <script src="{% static 'Etudiant/js/bootstrap.js' %}"></script>
+    <script src="{% static 'Etudiant/js/jquery.js' %}"></script>
+    <script src="{% static 'Etudiant/js/popper.js' %}"></script>
+</body>
+</html>

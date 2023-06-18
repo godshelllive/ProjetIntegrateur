@@ -1,0 +1,114 @@
+
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'Etudiant/css/bootstrap.css' %}">
+    <title>Gestion du projet</title>
+</head>
+
+<!--
+
+||||> Je veux dirriger les utilisateurs vers les pages en fonction de leur statut d'etudiant ou de leur existance dans la base
+de donnees
+
+||||> puis permettre aux professeurs d'entrer leur programme en fonction des jours et des heures libres d'enregistrer et de consulter les listes 
+d'inscrits.
+
+||||> permettre aux étudiants de pouvoir voir leurs congenaires puis et certains inscrits !
+
+-->
+
+<body style="background: linear-gradient(to bottom, rgb(255, 255, 255), rgb(0, 0, 0));">
+    <div class="container mt-5">
+        <h4 class="text-center danger" style="margin-bottom: 4%;border-radius: 10px;border: 2px solid rgb(0, 0, 0); background: linear-gradient(to right, rgb(0, 0, 0), rgb(0, 148, 247));padding: 3%;margin-left: 2%;color: rgb(255, 255, 255); font-family:cursive;">Projet d'Entrainement (numéro 55).</h4>
+        <div class="row">
+            <div class="col-12 col-md-4 text-center">
+                <div class="rounded-circle bg-info text-white mx-auto d-flex align-items-center justify-content-center" style="width: 100px; height: 100px;">
+                    <h6 class="m-0">{{name}}</h6>
+                </div>
+                <p style="color: rgb(0, 4, 65); font-size: 120%;">UTILISATEUR</p>
+            </div>
+            <div class="col-12 col-md-4 text-center">
+                <div class="rounded-circle bg-info text-white mx-auto d-flex align-items-center justify-content-center" style="width: 100px; height: 100px;">
+                    <h6 class="m-0">{{state.upper}}</h6>
+                </div>
+                <p style="color: rgb(0, 0, 68); font-size: 120%;">STATUT</p>
+            </div>
+            <div class="col-12 col-md-4 text-center">
+                <div class="rounded-circle bg-danger mx-auto d-flex align-items-center justify-content-center" style="width: 100px; height: 100px;">
+                    <a href="{% url 'vue_emploie' %}" class="btn btn-info" style="text-decoration: none;">VOIR L'EMPLOI DU TEMPS</a>
+                </div>
+                <p style="color: rgb(0, 0, 68); font-size: 120%;">POSSIBILITES</p>
+            </div>
+        </div>
+                
+        
+        <h4 class="text-center alert alert-info" style="background: linear-gradient(to bottom, rgb(0, 0, 0), rgb(0, 0, 59));">Administration</h4>
+
+
+        <div class="row">
+            <h6 class="text-center col-5" style="margin: 1%; padding: 1%; border-radius: 15px; border: 2px solid rgb(9, 51, 0); background: linear-gradient(to bottom, rgb(0, 0, 0), rgba(1, 0, 43, 0.918));color:rgb(255, 255, 255);">En tant que professeur vous pouvez rectifier les informations des apprenants ou les supprimer.</h6>
+            <h6 class="text-center col-5" style="margin: 1%; padding: 1%; border-radius: 15px; border: 2px solid rgb(9, 51, 0); background: linear-gradient(to bottom, rgb(0, 0, 0), rgba(1, 0, 43, 0.918));color:rgb(250, 250, 250);">Vous êtes élève alors, vous avez droit de modification sur les informations de vos semblables mais pas sur celles de vos supérieurs.</h6>
+            <h6 class="text-center col-5" style="margin: 1%; padding: 1%; border-radius: 15px; border: 2px solid rgb(9, 51, 0); background: linear-gradient(to bottom, rgb(0, 0, 0), rgba(1, 0, 43, 0.918));color:rgb(255, 255, 255);">En tant que professeur, si vous modifiez votre statut, veuillez l'écrire en grand caractère.</h6>
+            <h6 class="text-center col-5" style="margin: 1%; padding: 1%; border-radius: 15px; border: 2px solid rgb(9, 51, 0); background: linear-gradient(to bottom, rgb(0, 0, 0), rgba(1, 0, 43, 0.918));color:rgb(255, 255, 255);">Vous êtes élève, avant de supprimer la présence d'un de vos congénère, vous devez connaitre son mot de passe.</h6>
+        </div>
+        <h6 class="text-center" style="margin-top: 1%; padding: 1%; border-radius: 15px; border: 2px solid rgb(9, 51, 0); background: linear-gradient(to bottom, rgb(0, 0, 0), rgba(1, 0, 43, 0.918));color:rgb(255, 255, 255);">Vous êtes le directeur ou la directrice, vous avez donc tout droit sur les informations présentes.</h6>
+        
+        
+        <div class="col">
+            <table class="table-warning table-bordered border-primary" style=" border: 6px inset;">
+                <thead>
+                    {% if partner %}
+                  <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Nom</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Mot de passe</th>
+                    <th scope="col">Numéro</th>
+                    <th scope="col">Age</th>
+                    <th scope="col">Statut</th>
+                    <th scope="col">Possibilités</th>
+                  </tr>
+                </thead>
+                <tbody class="table-group-divider">
+                    {% for objs in partner %}
+                    <tr>
+                        <th scope="row">{{objs.id}}</th>
+                        <td>{{objs.name}}</td>
+                        <td>{{objs.email}}</td>
+                        <td>{{objs.password}}</td>
+                        <td>{{objs.number}}</td>
+                        <td>{{objs.age }}ans</td>
+                        <td>{{objs.state}}</td>
+                        
+                        <td style="display: flex; margin-top: 5%;">
+                            <a href="{% url 'updatepath' objs.id %}" class = "btn btn-info btn-sm">Modifier</a>
+                            <form action="{% url 'delete_path' objs.id %}" method="post">
+                                {%csrf_token%}
+                                <input type="submit" class="btn btn-danger" value="Supprimer">
+                            </form>
+                        </td>
+                    </tr>
+                    {% endfor%}
+                </tbody>
+              </table>
+            {% else %}
+            <h4 class="text-center alert alert-warning">No such files</h4>
+            {% endif %}
+        </div>
+        <a href="{% url 'connextion' %}" class = "btn btn-info" style="margin-bottom: 50%; margin-top: 3%; margin-left: 40%;">DECONNECTION</a>
+            </div>
+    <script src="{% static 'Etudiant/js/bootstrap.js' %}"></script>
+    <script src="{% static 'Etudiant/js/jquery.js' %}"></script>
+    <script src="{% static 'Etudiant/js/popper.js' %}"></script>
+    <script>
+        // Recharge la page après 5 secondes
+        setTimeout(function() {
+          location.reload();
+        }, 120000);
+    </script>
+</body>

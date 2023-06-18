@@ -1,0 +1,48 @@
+
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'Etudiant/css/bootstrap.css' %}">
+    <title>Gestion du projet</title>
+</head>
+<body style="background: linear-gradient(to bottom, rgba(0, 252, 13, 0.61), rgba(19, 75, 24, 0.644));">
+    
+    <div class="container mt-5">
+        <h4 class="text-center danger" style="margin-bottom: 4%;border-radius: 10px;border: 2px solid black; background: linear-gradient(to right, rgba(0, 59, 252, 0.74), rgba(0, 149, 248, 0.322));padding: 3%;margin-left: 2px;color: rgb(0, 41, 0); font-family:cursive;">Projet d'Entrainement (numéro 55).</h4>
+        <h4 class="text-center alert alert-info">ZONE PROFESSEUR !</h4>
+        {% if Pass %}
+        <center><div class="row">
+            <p class="text-center col" style="text-decoration: none; text-decoration: none; margin: 1%; padding: 1%; border-radius: 15px; border: 2px solid rgb(9, 51, 0); background: linear-gradient(to right, rgba(0, 4, 255, 0.829), transparent, rgba(80, 78, 214, 0.918));color:black; font-family: Arial; font-size: 98%;">Jours entrés précédemment:<br>{{Pass}}</p>
+        </div>
+        </center>
+        {% endif %}
+
+        <center><div class="row">
+            <p class="text-center col" style="text-decoration: none; text-decoration: none; margin: 1%; padding: 1%; border-radius: 15px; border: 2px solid rgb(9, 51, 0); background: linear-gradient(to right, rgba(0, 4, 255, 0.829), transparent, rgba(80, 78, 214, 0.918));color:black; font-family: cursive; font-size: 98%;">ECRIVEZ :<br><br>OK (pour occuper)<br><br>NO (pour laisser)</p>
+        </div>
+        {% if information %}
+        <center><div class="row">
+            <p class="text-center col" style="text-decoration: none; text-decoration: none; margin: 1%; padding: 1%; border-radius: 15px; border: 2px solid rgb(9, 51, 0); background: linear-gradient(to right, rgba(0, 4, 255, 0.829), transparent, rgba(80, 78, 214, 0.918));color:black; font-family: Arial; font-size: 98%;">ATTENTION !!<br>{{information}}</p>
+        </div>
+        </center>
+        {% endif %}
+        <form action="" method="post" style = "font-family:'Trebuchet MS'; font-size: 120%; color: rgb(0, 2, 102);">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <input type="submit" value="ENREGISTER MES CHOIX !" class = "btn btn-success">
+            <a href="javascript:history.back()" class="btn btn-danger"> J'ai fini ! </a>
+        </form>
+        <center><div class="row" style="margin-bottom: 50%; margin-top: 3%;">
+            <center><a href="javascript:history.back()" class = "btn btn-warning " style="margin-bottom: 2%;">RETOUR</a></center>
+            <center><a href="{% url 'addandshow' %}" class = "btn btn-danger col">DECONNECTION</a></center>
+        </div></center>
+    </div>
+    <script src="{% static 'Etudiant/js/bootstrap.js' %}"></script>
+    <script src="{% static 'Etudiant/js/jquery.js' %}"></script>
+    <script src="{% static 'Etudiant/js/popper.js' %}"></script>
+</body>
+</html>
